@@ -1,0 +1,23 @@
+{
+  "name": "bbx-countdown",
+  "authors": [
+    "BASIS Europe Distribution GmbH",
+    "Stephan Wald <swald@basis.com>",
+    "Hyyan Abo Fakher <hyyanaf@gmail.com>"
+  ],
+  "description":"A polymer built element that represents a simple seconds countdown clock",
+  "main": "bbx-countdown.html",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}
