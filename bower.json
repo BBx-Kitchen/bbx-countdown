@@ -7,6 +7,17 @@
   ],
   "description":"A polymer built element that represents a simple seconds countdown clock",
   "main": "bbx-countdown.html",
+  "keywords": [
+    "polymer",
+    "web-components",
+    "BBx-Kitchen",
+    "Basis Europe",
+    "polymer",
+    "seconds counter",
+    "minutes counter",
+    "countdown",
+    "clock countdown"
+  ],
   "ignore": [
     "/.*",
     "/test/"
