@@ -1,0 +1,232 @@
+<!--
+This file is part of the BBx-Kitchen/bbx-countdown
+(c) Basis Europe <eu@basis.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+
+<!--
+
+## BBX Countdown
+
+A polymer built element that represents a simple seconds countdown clock
+
+### Example
+
+```html
+
+<bbx-countdown time="60" on-over="_onOverListener">
+</bbx-countdown>
+
+```
+
+### Styling
+`<bbx-countdown>` provides the following custom properties and mixins
+for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--bxx-countdownr-width` | counter width | 120px
+`--bxx-countdown-height` | counter height | 40px
+`--bxx-countdown` | Mixin applied to counter | `{}`
+`--bxx-countdown-minute` | Mixin applied to minutes section in the counter | `{}`
+`--bxx-countdown-seperator` | Mixin applied to seperator section in the counter | `{}`
+`--bxx-countdown-second` | Mixin applied to second section in the counter | `{}`
+
+@group BBx Kitchen
+@element bbx-countdown
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="bbx-countdown">
+  <template>
+  <style include="iron-flex iron-flex-alignment">
+
+  :host{
+    display: block;
+  }
+
+  #timediv {
+
+    width: var(--bxx-countdown-width , 120px);
+    height: var(--bxx-countdown-height , 40px);
+
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 35px;
+    line-height: var(--bxx-countdown-height , 40px);
+    background-color: transparent;
+
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+
+    @apply(--bxx-countdown);
+  }
+
+  .minute {
+    width: 100%;
+    height: 100%;
+    @apply(--bxx-countdown-minute)
+  }
+
+  .seperator {
+    width: 100%;
+    height: 100%;
+    @apply(--bxx-countdown-seperator)
+  }
+
+  .second {
+    width: 100%;
+    height: 100%;
+    @apply(--bxx-countdown-second)
+  }
+  </style>
+  <div id="timediv" class="layout horizontal center-justified">
+    <div class="minute self-center" inner-h-t-m-l="[[minute]]"></div>
+    <div class="seperator self-center" inner-h-t-m-l="[[seperator]]"></div>
+    <div class="second self-center" inner-h-t-m-l="[[second]]"></div>
+  </div>
+</template>
+<script>
+
+'user strict';
+
+Polymer({
+  is: 'bbx-countdown',
+
+  properties:{
+
+    /**
+    * Time
+    *
+    * Time start point in seconds
+    *
+    * for examle : 120 sec => 2 min
+    *
+    * @type {Number}
+    */
+    time: {
+      type: Number,
+      observer: "_timeObserver",
+    },
+
+    /**
+    * Remain
+    *
+    * @type {Number}
+    */
+    remain: {
+      type: Number,
+    },
+
+    /**
+    * minute
+    *
+    * @type {String}
+    */
+    minute: {
+      type:String,
+      value: "0",
+    },
+
+    /**
+    * second
+    *
+    * @type {String}
+    */
+    second : {
+      type:String,
+      value: "00",
+    },
+
+    /**
+     * Seperator
+     *
+     * @type {String}
+     */
+    seperator : {
+      type: String,
+      value: ':'
+    },
+
+    /**
+    * Timer
+    *
+    * @type {Object}
+    */
+    timer: Object,
+  },
+
+
+  /**
+  * Set Time
+  *
+  * @param {String} time
+  */
+  setTime: function(time){
+    this.time = time;
+    this._timeObserver();
+  },
+
+  /**
+   * Fired when the counter finishes counting
+   *
+   * @event over
+   * @param {{bbx-countdown}} detail - instnace of the current countdown
+   */
+  /**
+  * Time Observer
+  *
+  * @param  {String} time
+  *
+  * @return {Boolean}  false , if time is invalid
+  */
+  _timeObserver: function(time){
+
+    clearInterval(this.timer);
+    if (time < 1){
+      return false;
+    }
+
+    this.set("remain",time);
+    // this.$.timediv.hidden = false;
+
+    this.timer = setInterval(function(){
+
+      this.set("remain",this.remain - 1);
+      var m = Math.floor (this.remain / 60) ;
+      if (m === 0){
+        m='0';
+      }
+
+      this.set("minute",m);
+
+      var s = this.remain - (m * 60);
+      var ss= ''+ s;
+      while (ss.length < 2){
+        ss='0'+ss;
+      }
+
+      this.set("second",ss);
+
+      if (this.remain < 1){
+
+        clearInterval(this.timer);
+        // this.$.timediv.hidden = true;
+        this.fire("over", this);
+      }
+
+    }.bind(this),
+    1000
+  );
+}
+
+});
+</script>
+</dom-module>

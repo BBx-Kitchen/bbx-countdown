@@ -1,0 +1,135 @@
+<!doctype html>
+<!--
+This file is part of the BBx-Kitchen/bbx-countdown
+(c) Basis Europe <eu@basis.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+-->
+
+<html>
+  <head>
+    <title>bbx-countdown demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../bbx-countdown.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+
+    @-webkit-keyframes glow {
+        to {
+             border-color: #2196F3;
+            -webkit-box-shadow: 0 0 5px #2196F3;
+               -moz-box-shadow: 0 0 5px #2196F3;
+                    box-shadow: 0 0 5px #2196F3;
+        }
+    }
+
+    @-moz-keyframes glow {
+        to {
+             border-color: #2196F3;
+            -webkit-box-shadow: 0 0 5px #2196F3;
+               -moz-box-shadow: 0 0 5px #2196F3;
+                    box-shadow: 0 0 5px #2196F3;
+        }
+    }
+
+    @keyframes glow {
+        to {
+             border-color: #2196F3;
+            -webkit-box-shadow: 0 0 5px #2196F3;
+               -moz-box-shadow: 0 0 5px #2196F3;
+                    box-shadow: 0 0 5px #2196F3;
+        }
+    }
+
+    /** theme 1 */
+    #t1{
+
+      --bxx-countdown-width : 200px;
+      --bxx-countdown-height : 50px;
+
+      --bxx-countdown : {
+        margin: 0 auto;
+      }
+
+      --bxx-countdown-minute : {
+        background: #212121;
+        color : #fff;
+         border-top-left-radius: 4px;
+         border-bottom-left-radius: 4px;
+      }
+
+      --bxx-countdown-seperator : {
+        display: none;
+      }
+
+      --bxx-countdown-second : {
+        border: 4px solid transparent;
+        -webkit-animation: glow 1.0s infinite alternate;
+        -webkit-transition: border 1.0s linear, box-shadow 1.0s linear;
+        -moz-transition: border 1.0s linear, box-shadow 1.0s linear;
+        transition: border 1.0s linear, box-shadow 1.0s linear;
+        background: #03A9F4;
+        color : #fff
+      }
+
+      margin-bottom : 10%;
+    }
+
+    /** theme 2 */
+    #t2{
+
+
+      --bxx-countdown-width : 120px;
+      --bxx-countdown-height : 40px;
+
+      --bxx-countdown : {
+        background : #2196F3;
+        color : #fff;
+        border: 3px solid #1976D2;
+
+        font-weight: bolder;
+        margin: 0 auto;
+      }
+
+      --bxx-countdown-second: {
+
+        /** this is becaue the first number is single */
+        padding-right: 8px;
+      }
+    }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <h3>BBX Countdown Demo</h3>
+      <demo-snippet>
+        <template is="dom-bind" id="app">
+           <bbx-countdown id="t1" time="800" on-over="_onOverListener"></bbx-countdown>
+           <bbx-countdown id="t2" time="10" on-over="_onOverListener"></bbx-countdown>
+        </template>
+      </demo-snippet>
+    </div>
+    <script>
+    (function(){
+
+      var app = document.querySelector('#app');
+
+      app._onOverListener = function(e){
+        e.detail.seperator = '';
+        e.detail.minute = '&nbsp;Over';
+        e.detail.second = '';
+      };
+
+    })();
+    </script>
+  </body>
+</html>
