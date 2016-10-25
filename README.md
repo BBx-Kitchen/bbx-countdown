@@ -1,4 +1,4 @@
-# BBX License Plate
+# BBX Countdown
 
 A polymer built element that represents a simple seconds countdown clock
 
